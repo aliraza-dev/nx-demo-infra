@@ -45,6 +45,8 @@
     "@opentelemetry/auto-instrumentations-node": "^0.77.0",
     "@opentelemetry/exporter-metrics-otlp-grpc": "^0.219.0",
     "@opentelemetry/exporter-trace-otlp-grpc": "^0.219.0",
+    "@opentelemetry/host-metrics": "^0.39.0",
+    "@opentelemetry/instrumentation-host-metrics": "^0.2.0",
     "@opentelemetry/instrumentation-nestjs-core": "^0.65.0",
     "@opentelemetry/instrumentation-winston": "^0.63.0",
     "@opentelemetry/sdk-node": "^0.219.0",

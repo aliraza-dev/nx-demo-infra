@@ -4,10 +4,12 @@ import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-grpc';
 import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-grpc';
 import { resourceFromAttributes } from '@opentelemetry/resources';
-import { SEMRESATTRS_SERVICE_NAME } from '@opentelemetry/semantic-conventions';
+import { SEMRESATTRS_SERVICE_NAME } from '@opentelemetry/semantic-conventions'; // Will fix these deprecated imports in the next release of OpenTelemetry
 import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 import { SimpleLogRecordProcessor } from '@opentelemetry/sdk-logs';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-grpc';
+import { metrics } from '@opentelemetry/api';
+// import { HostMetricsInstrumentation } from '@opentelemetry/instrumentation-host-metrics';
 
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.WARN);
 
@@ -28,12 +30,32 @@ const sdk = new NodeSDK({
     }),
   }),
   logRecordProcessors: [new SimpleLogRecordProcessor(logExporter)],
-  instrumentations: [getNodeAutoInstrumentations()],
+  instrumentations: [
+    getNodeAutoInstrumentations(),
+    // new HostMetricsInstrumentation(),
+  ],
 });
 
 sdk.start();
-console.log('🚀 OpenTelemetry Runtime Hooks Successfully Injected');
+console.log('OpenTelemetry Runtime Hooks Successfully Injected');
 
+const customMeter = metrics.getMeter('api-gateway-custom-metrics');
+
+const cpuTimeMetric = customMeter.createObservableCounter('process.cpu.time', {
+  description: 'Time spent by the Node.js process on the CPU',
+  unit: 's',
+});
+
+cpuTimeMetric.addCallback((observableResult) => {
+  // Node.js returns CPU time in microseconds
+  const usage = process.cpuUsage();
+
+  // Convert microseconds to seconds and push to the Collector with state labels
+  observableResult.observe(usage.user / 1e6, { state: 'user' });
+  observableResult.observe(usage.system / 1e6, { state: 'system' });
+});
+
+// Graceful shutdown of the SDK to ensure all telemetry is flushed before the application exits
 process.on('SIGTERM', () => {
   sdk
     .shutdown()
