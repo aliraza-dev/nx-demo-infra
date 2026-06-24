@@ -41,5 +41,12 @@
       },
       "exclude": ["apps/api-gateway-e2e/**/*", "apps/order-service-e2e/**/*"]
     }
-  ]
+  ],
+  "targetDefaults": {
+    "@nx/js:tsc": {
+      "cache": true,
+      "dependsOn": ["^build"],
+      "inputs": ["production", "^production"]
+    }
+  }
 }

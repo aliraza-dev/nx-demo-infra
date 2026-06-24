@@ -16,7 +16,7 @@ services:
       - observability-net
     depends_on:
       - prometheus
-      # - tempo
+      - tempo
 
   prometheus:
     image: prom/prometheus:latest
@@ -31,28 +31,28 @@ services:
     networks:
       - observability-net
 
-  # tempo:
-  #   image: grafana/tempo:latest
-  #   container_name: tempo
-  #   command: ['-config.file=/etc/tempo.yaml']
-  #   volumes:
-  #     - ./tempo.yaml:/etc/tempo.yaml
-  #     - tempo-data:/var/tempo
-  #   ports:
-  #     - '3200:3200'
-  #   networks:
-  #     - observability-net
+  tempo:
+    image: grafana/tempo:latest
+    container_name: tempo
+    command: ['-config.file=/etc/tempo.yaml']
+    volumes:
+      - ./tempo.yaml:/etc/tempo.yaml
+      - tempo-data:/var/tempo
+    ports:
+      - '3200:3200'
+    networks:
+      - observability-net
 
-  # loki:
-  #   image: grafana/loki:latest
-  #   container_name: loki
-  #   command: ['-config.file=/etc/loki-local-config.yaml']
-  #   volumes:
-  #     - ./loki-local-config.yaml:/etc/loki-local-config.yaml
-  #   ports:
-  #     - '3100:3100' # Loki API
-  #   networks:
-  #     - observability-net
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    command: ['-config.file=/etc/loki-local-config.yaml']
+    volumes:
+      - ./loki-local-config.yaml:/etc/loki-local-config.yaml
+    ports:
+      - '3100:3100' # Loki API
+    networks:
+      - observability-net
 
   grafana:
     image: grafana/grafana:latest
@@ -68,8 +68,8 @@ services:
       - observability-net
     depends_on:
       - prometheus
-      # - tempo
-      # - loki
+      - tempo
+      - loki
 
 volumes:
   tempo-data:

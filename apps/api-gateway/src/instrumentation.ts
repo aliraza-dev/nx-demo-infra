@@ -9,6 +9,7 @@ import { diag, DiagConsoleLogger, DiagLogLevel } from '@opentelemetry/api';
 import { SimpleLogRecordProcessor } from '@opentelemetry/sdk-logs';
 import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-grpc';
 import { metrics } from '@opentelemetry/api';
+import { WinstonInstrumentation } from '@opentelemetry/instrumentation-winston';
 // import { HostMetricsInstrumentation } from '@opentelemetry/instrumentation-host-metrics';
 
 diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.WARN);
@@ -33,6 +34,7 @@ const sdk = new NodeSDK({
   instrumentations: [
     getNodeAutoInstrumentations(),
     // new HostMetricsInstrumentation(),
+    new WinstonInstrumentation(),
   ],
 });
 

@@ -7,17 +7,14 @@ distributor:
     otlp:
       protocols:
         grpc:
-          endpoint: 0.0.0.0:4317 # for OTLP gRPC
+          endpoint: 0.0.0.0:4317 # Listens for OTel Collector
         http:
-          endpoint: 0.0.0.0:4318 # for OTLP HTTP
-
-ingester:
-  max_block_duration: 5m
+          endpoint: 0.0.0.0:4318
 
 storage:
   trace:
     backend: local
-    local:
-      path: /var/tempo/wal
     wal:
-      path: /var/tempo/wal
+      path: /var/tempo/wal # Temporary hot storage
+    local:
+      path: /var/tempo/blocks # Separate long-term block storage

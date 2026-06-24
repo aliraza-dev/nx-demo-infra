@@ -9,6 +9,12 @@ receivers:
 processors:
   batch:
 
+  resource/loki:
+    attributes:
+      - action: insert
+        key: loki.resource.labels
+        value: 'service.name'
+
 exporters:
   # Metrics exporter
   otlphttp/prometheus:
@@ -50,5 +56,5 @@ service:
 
     logs:
       receivers: [otlp]
-      processors: [batch]
+      processors: [resource/loki, batch]
       exporters: [otlphttp/loki]
