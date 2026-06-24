@@ -1,13 +1,11 @@
-// apps/order-service/src/main.ts
-import sdk from './instrumentation';
-
-// Start OpenTelemetry SDK first
-sdk.start();
+import './instrumentation';
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
+import { gatewayLogger } from '@observability-monorepo/logger';
+import { WinstonModule } from 'nest-winston';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -18,6 +16,9 @@ async function bootstrap() {
         host: '127.0.0.1',
         port: 3001,
       },
+      logger: WinstonModule.createLogger({
+        instance: gatewayLogger,
+      }),
     },
   );
   await app.listen();
