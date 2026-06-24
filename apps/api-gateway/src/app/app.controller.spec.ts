@@ -12,10 +12,24 @@ describe('AppController', () => {
     }).compile();
   });
 
-  describe('getData', () => {
-    it('should return "Hello API"', () => {
+  describe('healthz', () => {
+    it('should return "Health check passed in Api Gateway"', () => {
       const appController = app.get<AppController>(AppController);
-      expect(appController.getData()).toEqual({ message: 'Hello API' });
+
+      expect(appController.healthz()).toEqual({
+        message: 'Health check passed in Api Gateway',
+      });
+    });
+  });
+
+  describe('login', () => {
+    it('should return "Login successful" message', () => {
+      const appController = app.get<AppController>(AppController);
+      const loginDto = { email: 'random@email.com', password: 'password' };
+
+      expect(appController.login(loginDto)).toEqual({
+        message: 'Login successful',
+      });
     });
   });
 });

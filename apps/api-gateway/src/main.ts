@@ -1,6 +1,6 @@
 import './instrumentation';
 
-import { Logger } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { WinstonModule } from 'nest-winston';
 import { gatewayLogger } from '@observability-monorepo/logger';
@@ -14,6 +14,12 @@ async function bootstrap() {
   });
   const globalPrefix = 'api';
   app.setGlobalPrefix(globalPrefix);
+
+  // Embed validators and transformers for DTO
+  app.useGlobalPipes(
+    new ValidationPipe({ transform: true, forbidNonWhitelisted: true }),
+  );
+
   const port = process.env.PORT || 3000;
   await app.listen(port);
   Logger.log(

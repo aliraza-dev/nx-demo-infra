@@ -53,6 +53,8 @@
     "@opentelemetry/sdk-node": "^0.219.0",
     "@opentelemetry/winston-transport": "^0.29.0",
     "axios": "^1.6.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
     "nest-winston": "^1.10.2",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.0",

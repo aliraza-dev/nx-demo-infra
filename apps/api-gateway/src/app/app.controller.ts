@@ -1,5 +1,6 @@
-import { Controller, Get, Logger } from '@nestjs/common';
+import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
 import { AppService } from './app.service';
+import { LoginDto } from './dto';
 
 @Controller()
 export class AppController {
@@ -14,5 +15,10 @@ export class AppController {
     this.winstonLogger.log('--- Gateway Endpoint Pinged Successfully ---');
 
     return this.appService.healthz();
+  }
+
+  @Post('login')
+  login(@Body() loginDto: LoginDto) {
+    return this.appService.login(loginDto);
   }
 }
