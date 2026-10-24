@@ -1,0 +1,100 @@
+replicaCount: 1
+
+image:
+  repository: grafana/loki
+  pullPolicy: IfNotPresent
+  tag: "3.1.0"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: "loki"
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 10001
+
+securityContext:
+  runAsUser: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+
+service:
+  type: ClusterIP
+  ports:
+    http:
+      port: 3100
+      targetPort: 3100
+      protocol: TCP
+    grpc:
+      port: 9096
+      targetPort: 9096
+      protocol: TCP
+
+persistence:
+  enabled: false
+  size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  # storageClassName: ""
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+extraVolumes: []
+extraVolumeMounts: []
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+config: |
+  auth_enabled: false
+
+  server:
+    http_listen_port: 3100
+    grpc_listen_port: 9096
+
+  common:
+    instance_addr: 127.0.0.1
+    path_prefix: /tmp/loki
+    storage:
+      filesystem:
+        chunks_directory: /tmp/loki/chunks
+        rules_directory: /tmp/loki/rules
+    replication_factor: 1
+    ring:
+      kvstore:
+        store: inmemory
+
+  query_range:
+    results_cache:
+      cache:
+        embedded_cache:
+          enabled: true
+          max_size_mb: 100
+
+  schema_config:
+    configs:
+      - from: 2024-01-01
+        store: tsdb
+        object_store: filesystem
+        schema: v13
+        index:
+          prefix: index_
+          period: 24h
+
+  limits_config:
+    allow_structured_metadata: true

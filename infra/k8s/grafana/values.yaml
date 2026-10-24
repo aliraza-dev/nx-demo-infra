@@ -1,0 +1,104 @@
+replicaCount: 1
+
+image:
+  repository: grafana/grafana
+  pullPolicy: IfNotPresent
+  tag: "11.2.0"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: "grafana"
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 472
+
+securityContext:
+  runAsUser: 472
+  runAsGroup: 472
+  runAsNonRoot: true
+
+service:
+  type: ClusterIP
+  port: 3000
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: grafana.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+persistence:
+  enabled: false
+  size: 5Gi
+  accessModes:
+    - ReadWriteOnce
+  # storageClassName: ""
+
+env:
+  GF_AUTH_ANONYMOUS_ENABLED: "true"
+  GF_AUTH_ANONYMOUS_ORG_ROLE: "Admin"
+  GF_USERS_ALLOW_SIGN_UP: "false"
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Automatic datasource provisioning
+datasources:
+  enabled: true
+  config:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        access: proxy
+        url: http://prometheus:9090
+        isDefault: true
+        editable: true
+      - name: Loki
+        type: loki
+        access: proxy
+        url: http://loki:3100
+        editable: true
+        jsonData:
+          derivedFields:
+            - datasourceUid: tempo
+              matcherRegex: '(?:trace_?id|traceID|tid)=(\w+)'
+              name: TraceID
+              url: '$${__value.raw}'
+      - name: Tempo
+        type: tempo
+        access: proxy
+        url: http://tempo:3200
+        uid: tempo
+        editable: true
+        jsonData:
+          tracesToLogs:
+            datasourceUid: Loki
+          serviceMap:
+            datasourceUid: Prometheus
+
+extraVolumes: []
+extraVolumeMounts: []
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

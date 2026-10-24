@@ -1,0 +1,91 @@
+replicaCount: 1
+
+image:
+  repository: grafana/tempo
+  pullPolicy: IfNotPresent
+  tag: "2.6.0"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: "tempo"
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 10001
+
+securityContext:
+  runAsUser: 10001
+  runAsGroup: 10001
+  runAsNonRoot: true
+
+service:
+  type: ClusterIP
+  ports:
+    http:
+      port: 3200
+      targetPort: 3200
+      protocol: TCP
+    otlp-grpc:
+      port: 4317
+      targetPort: 4317
+      protocol: TCP
+    otlp-http:
+      port: 4318
+      targetPort: 4318
+      protocol: TCP
+    grpc:
+      port: 9095
+      targetPort: 9095
+      protocol: TCP
+
+persistence:
+  enabled: false
+  size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+  # storageClassName: ""
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+extraVolumes: []
+extraVolumeMounts: []
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+config: |
+  server:
+    http_listen_port: 3200
+    grpc_listen_port: 9095
+
+  distributor:
+    receivers:
+      otlp:
+        protocols:
+          grpc:
+            endpoint: 0.0.0.0:4317
+          http:
+            endpoint: 0.0.0.0:4318
+
+  storage:
+    trace:
+      backend: local
+      wal:
+        path: /var/tempo/wal
+      local:
+        path: /var/tempo/blocks

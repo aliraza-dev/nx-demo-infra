@@ -141,16 +141,9 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
-# Additional volumes on the output Deployment definition.
-volumes:
-  - name: config-volume
-    configMap:
-      name: {{ include "prometheus.fullname" . }}-config
-
-# Additional volumeMounts on the output Deployment definition.
-volumeMounts:
-  - name: config-volume
-    mountPath: /etc/prometheus
+# Extra volumes and volumeMounts on the output Deployment definition.
+extraVolumes: []
+extraVolumeMounts: []
 
 nodeSelector: {}
 
@@ -162,7 +155,7 @@ affinity: {}
 args:
   - '--config.file=/etc/prometheus/prometheus.yml'
   - --storage.tsdb.path=/prometheus
-  - --web.enable-otlp-receiver
+  - --enable-feature=otlp-write-receiver
   - --web.console.libraries=/usr/share/prometheus/console_libraries
   - --web.console.templates=/usr/share/prometheus/consoles
 

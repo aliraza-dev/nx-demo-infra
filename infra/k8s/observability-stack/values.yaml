@@ -1,0 +1,15 @@
+# Umbrella chart values to override subcharts
+prometheus:
+  enabled: true
+
+otel-collector:
+  enabled: true
+
+tempo:
+  enabled: true
+
+loki:
+  enabled: true
+
+grafana:
+  enabled: true

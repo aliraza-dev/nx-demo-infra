@@ -1,0 +1,33 @@
+# Values for testing on Minikube
+replicaCount: 1
+
+image:
+  repository: prom/prometheus
+  pullPolicy: IfNotPresent
+  tag: "v2.54.1"
+
+service:
+  type: NodePort
+  port: 9090
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+livenessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 15
+
+readinessProbe:
+  httpGet:
+    path: /
+    port: http
+  initialDelaySeconds: 10
+  periodSeconds: 10

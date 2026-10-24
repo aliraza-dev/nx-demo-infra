@@ -1,0 +1,18 @@
+dependencies:
+- name: prometheus
+  repository: file://../prometheus
+  version: 0.1.0
+- name: otel-collector
+  repository: file://../otel-collector
+  version: 0.1.0
+- name: tempo
+  repository: file://../tempo
+  version: 0.1.0
+- name: loki
+  repository: file://../loki
+  version: 0.1.0
+- name: grafana
+  repository: file://../grafana
+  version: 0.1.0
+digest: sha256:c2c7e2df9a890579cd6640603c8bcc396e7126794fb9828ff81153900f52aea5
+generated: "2026-10-24T18:33:48.1769788+05:00"
