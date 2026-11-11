@@ -1,0 +1,36 @@
+{
+  "monorepo": true,
+  "root": "apps/observability-monorepo-source",
+  "sourceRoot": "apps/observability-monorepo-source/src",
+  "compilerOptions": {
+    "webpack": true,
+    "tsConfigPath": "apps/observability-monorepo-source/tsconfig.app.json",
+    "assets": [
+      {
+        "include": "**/*.proto",
+        "outDir": "dist/apps/observability-monorepo-source/src"
+      }
+    ],
+    "watchAssets": true
+  },
+  "projects": {
+    "observability-monorepo-source": {
+      "type": "application",
+      "root": "apps/observability-monorepo-source",
+      "entryFile": "main",
+      "sourceRoot": "apps/observability-monorepo-source/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/observability-monorepo-source/tsconfig.app.json"
+      }
+    },
+    "payments": {
+      "type": "application",
+      "root": "apps/payments",
+      "entryFile": "main",
+      "sourceRoot": "apps/payments/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/payments/tsconfig.app.json"
+      }
+    }
+  }
+}

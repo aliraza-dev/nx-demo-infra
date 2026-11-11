@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Logger, Post } from '@nestjs/common';
 import { AppService } from './app.service';
-import { LoginDto } from './dto';
+import { LoginDto, OrderDetailsDto } from './dto';
 
 @Controller()
 export class AppController {
@@ -20,5 +20,13 @@ export class AppController {
   @Post('login')
   login(@Body() loginDto: LoginDto) {
     return this.appService.login(loginDto);
+  }
+
+  @Post('order-details')
+  getOrderDetails(@Body() orderDetailsDto: OrderDetailsDto) {
+    this.logger.log(
+      `--- Gateway order-details request for orderId=${orderDetailsDto.orderId} ---`,
+    );
+    return this.appService.getOrderDetails(orderDetailsDto);
   }
 }

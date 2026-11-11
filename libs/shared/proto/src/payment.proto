@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package payments;
+
+service PaymentsService {
+  rpc ProcessPayment (PaymentRequest) returns (PaymentResponse);
+  rpc GetPaymentStatus (PaymentStatusRequest) returns (PaymentResponse);
+  rpc GetPaymentDetails (PaymentDetailsRequest) returns (PaymentDetailsResponse);
+}
+
+message PaymentRequest {
+  string orderId = 1;
+  double amount = 2;
+  string currency = 3;
+}
+
+message PaymentStatusRequest {
+  string paymentId = 1;
+}
+
+message PaymentResponse {
+  string paymentId = 1;
+  string status = 2;
+  string message = 3;
+}
+
+message PaymentDetailsRequest {
+  string orderId = 1;
+}
+
+message PaymentDetailsResponse {
+  string paymentId = 1;
+  string orderId = 2;
+  double amount = 3;
+  string currency = 4;
+  string status = 5;
+  string method = 6;
+  string paidAt = 7;
+}
