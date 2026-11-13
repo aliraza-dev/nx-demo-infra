@@ -1,0 +1,15 @@
+@import '@fontsource/noto-sans/300.css';
+@import '@fontsource/noto-sans/400.css';
+@import '@fontsource/noto-sans/500.css';
+@import '@fontsource/noto-sans/600.css';
+@import '@fontsource/noto-sans/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'Noto Sans', system-ui, -apple-system, sans-serif;
+}
+
+/* You can add global styles to this file, and also import other style files */

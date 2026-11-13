@@ -1,0 +1,288 @@
+<div class="min-h-screen w-full flex flex-col md:flex-row bg-[#22263f] overflow-x-hidden font-sans select-none">
+  <!-- Left Side: Mascot & Space Background (60% width) -->
+  <div class="relative w-full md:w-[60%] flex-none flex flex-col items-center justify-between min-h-[500px] md:min-h-screen p-6 md:p-12 overflow-hidden bg-gradient-to-b from-[#262c4d] via-[#21263f] to-[#1c2035]">
+    <!-- Background Starfield / Sparkles -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="star star-1 top-[12%] left-[18%]"></div>
+      <div class="star star-2 top-[22%] left-[82%]"></div>
+      <div class="star star-3 top-[38%] left-[12%]"></div>
+      <div class="star star-1 top-[68%] left-[24%]"></div>
+      <div class="star star-2 top-[78%] left-[76%]"></div>
+      <div class="star star-3 top-[18%] left-[45%]"></div>
+      <div class="star star-1 top-[88%] left-[40%]"></div>
+      <div class="star star-2 top-[52%] left-[88%]"></div>
+      <div class="star star-3 top-[30%] left-[32%]"></div>
+      <div class="star star-1 top-[60%] left-[6%]"></div>
+    </div>
+
+    <!-- Top Headline -->
+    <div class="relative z-10 text-center pt-4 md:pt-8">
+      <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal text-slate-100 tracking-wide font-sans drop-shadow-sm">
+        Let's get stuff deployed!
+      </h1>
+    </div>
+
+    <!-- Center Mascot Illustration -->
+    <div class="relative z-10 flex items-center justify-center my-auto py-8">
+      <div class="relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 max-w-full">
+        <svg viewBox="0 0 460 460" class="w-full h-full drop-shadow-2xl" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <!-- Helmet Glass Radial Gradient -->
+            <radialGradient id="helmetGlass" cx="38%" cy="32%" r="65%">
+              <stop offset="0%" stop-color="#7e9dcf" stop-opacity="0.38"/>
+              <stop offset="45%" stop-color="#465c85" stop-opacity="0.52"/>
+              <stop offset="85%" stop-color="#25324b" stop-opacity="0.75"/>
+              <stop offset="100%" stop-color="#182133" stop-opacity="0.88"/>
+            </radialGradient>
+
+            <!-- Octopus Body Gradient -->
+            <linearGradient id="octopusBody" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#ff7b54"/>
+              <stop offset="50%" stop-color="#f05a36"/>
+              <stop offset="100%" stop-color="#d64624"/>
+            </linearGradient>
+
+            <!-- Gear Gradient -->
+            <linearGradient id="gearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#64748b"/>
+              <stop offset="50%" stop-color="#4f5e73"/>
+              <stop offset="100%" stop-color="#3d495c"/>
+            </linearGradient>
+
+            <!-- Gear Inner Rim Gradient -->
+            <linearGradient id="gearInnerRim" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#333e50"/>
+              <stop offset="100%" stop-color="#232b38"/>
+            </linearGradient>
+
+            <!-- Helmet Collar Gradient -->
+            <linearGradient id="collarGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+              <stop offset="0%" stop-color="#55698b"/>
+              <stop offset="100%" stop-color="#38455e"/>
+            </linearGradient>
+
+            <!-- Soft Shadow -->
+            <filter id="shadowFilter" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="12" stdDeviation="10" flood-color="#0e1320" flood-opacity="0.6"/>
+            </filter>
+          </defs>
+
+          <!-- Under-gear Shadow -->
+          <ellipse cx="230" cy="405" rx="130" ry="24" fill="#131724" opacity="0.65" filter="url(#shadowFilter)"/>
+
+          <!-- 1. The Cog / Gear Platform -->
+          <g id="gear-group">
+            <!-- Gear Teeth (8 outer trapezoid cogs) -->
+            <!-- Top / Bottom / Left / Right and 45-deg angles -->
+            <rect x="216" y="302" width="28" height="24" rx="4" fill="#4d5b70" transform="rotate(0, 230, 385)"/>
+            <rect x="216" y="302" width="28" height="24" rx="4" fill="#4d5b70" transform="rotate(45, 230, 385)"/>
+            <rect x="216" y="302" width="28" height="24" rx="4" fill="#4d5b70" transform="rotate(90, 230, 385)"/>
+            <rect x="216" y="302" width="28" height="24" rx="4" fill="#4d5b70" transform="rotate(135, 230, 385)"/>
+            <rect x="216" y="302" width="28" height="24" rx="4" fill="#4d5b70" transform="rotate(180, 230, 385)"/>
+            <rect x="216" y="302" width="28" height="24" rx="4" fill="#4d5b70" transform="rotate(225, 230, 385)"/>
+            <rect x="216" y="302" width="28" height="24" rx="4" fill="#4d5b70" transform="rotate(270, 230, 385)"/>
+            <rect x="216" y="302" width="28" height="24" rx="4" fill="#4d5b70" transform="rotate(315, 230, 385)"/>
+
+            <!-- Main Gear Body Circle -->
+            <circle cx="230" cy="385" r="72" fill="url(#gearGradient)" stroke="#6a7d99" stroke-width="2"/>
+
+            <!-- Inner Gear Recessed Rim -->
+            <circle cx="230" cy="385" r="50" fill="url(#gearInnerRim)" stroke="#2b3444" stroke-width="2"/>
+
+            <!-- Gear Center Bore Hole -->
+            <circle cx="230" cy="385" r="28" fill="#18202d"/>
+          </g>
+
+          <!-- 2. Astronaut Helmet Outer Ring & Collar -->
+          <g id="helmet-collar">
+            <ellipse cx="230" cy="336" rx="92" ry="19" fill="url(#collarGrad)" stroke="#677e9f" stroke-width="2.5"/>
+            <ellipse cx="230" cy="337" rx="78" ry="13" fill="#253045"/>
+          </g>
+
+          <!-- 3. The Argo Octopus Character -->
+          <g id="argo-octopus">
+            <!-- Octopus Bulbous Head Dome -->
+            <!-- Smooth round head from y=140 down to y=285 -->
+            <path d="M 180,280 C 172,198 185,142 230,142 C 275,142 288,198 280,280 C 274,292 186,292 180,280 Z"
+                  fill="url(#octopusBody)" />
+
+            <!-- Tentacles draping downwards over the gear -->
+            <!-- Tentacle 1 (Far Left, curling up/out) -->
+            <path d="M 182,274 C 168,284 152,306 160,332 C 165,348 178,354 186,346 C 193,338 188,322 184,306 C 182,298 182,286 182,274 Z"
+                  fill="#ea5430"/>
+
+            <!-- Tentacle 2 (Mid-Left) -->
+            <path d="M 194,284 C 188,300 182,324 185,348 C 187,362 198,364 204,354 C 210,344 206,322 204,302 C 202,294 200,288 194,284 Z"
+                  fill="url(#octopusBody)"/>
+
+            <!-- Tentacle 3 (Center-Left) -->
+            <path d="M 212,288 C 210,306 208,334 212,358 C 214,368 223,370 227,360 C 231,348 228,324 224,304 C 222,296 218,290 212,288 Z"
+                  fill="#ff6e47"/>
+
+            <!-- Tentacle 4 (Center-Right) -->
+            <path d="M 234,288 C 238,306 240,334 236,358 C 234,368 243,370 248,360 C 253,348 249,324 245,304 C 243,296 238,290 234,288 Z"
+                  fill="#ff6e47"/>
+
+            <!-- Tentacle 5 (Mid-Right) -->
+            <path d="M 252,284 C 258,300 264,324 261,348 C 259,362 248,364 242,354 C 236,344 240,322 242,302 C 244,294 246,288 252,284 Z"
+                  fill="url(#octopusBody)"/>
+
+            <!-- Tentacle 6 (Far Right, curling out) -->
+            <path d="M 276,274 C 290,284 306,306 298,332 C 293,348 280,354 272,346 C 265,338 270,322 274,306 C 276,298 276,286 276,274 Z"
+                  fill="#ea5430"/>
+
+            <!-- Big Expressive Cartoon Eyes -->
+            <!-- Left Eye White -->
+            <ellipse cx="206" cy="222" rx="19" ry="21" fill="#ffffff"/>
+            <!-- Left Pupil -->
+            <ellipse cx="208" cy="222" rx="9" ry="10" fill="#1a1e28"/>
+            <!-- Left Eye Catchlight reflection -->
+            <circle cx="211" cy="218" r="3.2" fill="#ffffff"/>
+
+            <!-- Right Eye White -->
+            <ellipse cx="254" cy="222" rx="19" ry="21" fill="#ffffff"/>
+            <!-- Right Pupil -->
+            <ellipse cx="252" cy="222" rx="9" ry="10" fill="#1a1e28"/>
+            <!-- Right Eye Catchlight reflection -->
+            <circle cx="255" cy="218" r="3.2" fill="#ffffff"/>
+
+            <!-- Happy Smiling Mouth -->
+            <path d="M 221,248 C 224,260 236,260 239,248"
+                  fill="none" stroke="#661408" stroke-width="3.2" stroke-linecap="round"/>
+          </g>
+
+          <!-- 4. Astronaut Helmet Glass Bubble (Overlay with transparency and glares) -->
+          <g id="helmet-glass-bubble">
+            <!-- Glass Dome Fill -->
+            <circle cx="230" cy="228" r="116" fill="url(#helmetGlass)" stroke="#536a90" stroke-width="3.5"/>
+
+            <!-- Primary Glass Reflection Arc (Top-Left) -->
+            <path d="M 148,198 A 104,104 0 0,1 216,128"
+                  fill="none" stroke="#a5c4f5" stroke-width="6.5" stroke-linecap="round" opacity="0.65"/>
+
+            <!-- Secondary Smaller Accent Glare -->
+            <path d="M 228,126 A 104,104 0 0,1 254,129"
+                  fill="none" stroke="#a5c4f5" stroke-width="5" stroke-linecap="round" opacity="0.45"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Empty footer space on left to balance layout -->
+    <div class="h-6"></div>
+  </div>
+
+  <!-- Right Side: Clean White Login Panel (40% width) -->
+  <div class="w-full md:w-[40%] flex-none bg-white flex flex-col justify-between p-6 sm:p-8 md:p-10 shadow-2xl min-h-[460px] md:min-h-screen z-20">
+    <!-- Top Title -->
+    <div class="flex justify-end pt-2">
+      <div class="flex items-center space-x-1 cursor-pointer select-none" title="AI Service Broker">
+        <span class="text-2xl sm:text-3xl font-bold tracking-tight text-[#eb5424] font-sans">
+          AI Service Broker
+        </span>
+      </div>
+    </div>
+
+    <!-- Middle Form Section -->
+    <div class="w-full max-w-lg sm:max-w-xl mx-auto my-auto py-8 px-2 sm:px-4">
+      <!-- Error Message Banner -->
+      @if (errorMessage()) {
+        <div class="mb-6 p-3.5 rounded-md bg-red-50 border border-red-200 text-red-600 text-sm flex items-center gap-2.5 animate-fadeIn">
+          <svg class="w-5 h-5 shrink-0 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <span>{{ errorMessage() }}</span>
+        </div>
+      }
+
+      <!-- Success Message Banner -->
+      @if (successMessage()) {
+        <div class="mb-6 p-3.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm flex items-center gap-2.5 animate-fadeIn">
+          <svg class="w-5 h-5 shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+          </svg>
+          <span>{{ successMessage() }}</span>
+        </div>
+      }
+
+      <form (ngSubmit)="onSubmit()" class="space-y-8">
+        <!-- Username Input Field -->
+        <div class="relative group">
+          <input
+            type="text"
+            id="username"
+            name="username"
+            [ngModel]="username()"
+            (ngModelChange)="username.set($event)"
+            placeholder="Username"
+            autocomplete="username"
+            required
+            class="w-full pb-3 pt-2 text-base sm:text-lg text-gray-800 bg-transparent border-b-2 border-gray-200 focus:border-[#eb5424] focus:outline-none transition-colors duration-200 placeholder-gray-400 font-normal"
+          />
+          <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-[#eb5424] group-focus-within:w-full transition-all duration-300"></div>
+        </div>
+
+        <!-- Password Input Field -->
+        <div class="relative group">
+          <input
+            [type]="showPassword() ? 'text' : 'password'"
+            id="password"
+            name="password"
+            [ngModel]="password()"
+            (ngModelChange)="password.set($event)"
+            placeholder="Password"
+            autocomplete="current-password"
+            required
+            class="w-full pb-3 pt-2 pr-10 text-base sm:text-lg text-gray-800 bg-transparent border-b-2 border-gray-200 focus:border-[#eb5424] focus:outline-none transition-colors duration-200 placeholder-gray-400 font-normal"
+          />
+          <div class="absolute bottom-0 left-0 h-[2px] w-0 bg-[#eb5424] group-focus-within:w-full transition-all duration-300"></div>
+
+          <!-- Password Visibility Toggle Icon -->
+          <button
+            type="button"
+            (click)="togglePasswordVisibility()"
+            class="absolute right-0 bottom-3 text-gray-400 hover:text-gray-600 focus:outline-none transition-colors"
+            [title]="showPassword() ? 'Hide password' : 'Show password'"
+          >
+            @if (showPassword()) {
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l18 18" />
+              </svg>
+            } @else {
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            }
+          </button>
+        </div>
+
+        <!-- Sign In Button (Compact size, right-aligned, with #eb5424 background) -->
+        <div class="pt-6 flex justify-end">
+          <button
+            type="submit"
+            [disabled]="isLoading()"
+            class="inline-flex items-center justify-center px-5 py-2.5 font-semibold text-xs sm:text-sm tracking-wider uppercase text-white bg-[#eb5424] hover:bg-[#d6471b] active:bg-[#bf3d14] rounded shadow-sm hover:shadow transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-[#eb5424]/30 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            @if (isLoading()) {
+              <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>SIGNING IN...</span>
+            } @else {
+              <span>SIGN IN</span>
+            }
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Bottom Watermark Logo -->
+    <div class="flex justify-end pb-2">
+      <span class="text-xs font-semibold tracking-tight text-gray-400 select-none">
+        AI Service Broker
+      </span>
+    </div>
+  </div>
+</div>

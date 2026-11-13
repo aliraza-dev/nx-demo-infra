@@ -44,3 +44,7 @@ Thumbs.db
 .claude/settings.local.json
 *.tgz
 
+
+.angular
+
+__screenshots__/
