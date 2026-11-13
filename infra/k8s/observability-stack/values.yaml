@@ -13,3 +13,8 @@ loki:
 
 grafana:
   enabled: true
+
+postgresql:
+  enabled: true
+  persistence:
+    size: 2Gi

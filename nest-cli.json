@@ -14,6 +14,15 @@
     "watchAssets": true
   },
   "projects": {
+    "login-registration": {
+      "type": "application",
+      "root": "apps/login-registration",
+      "entryFile": "main",
+      "sourceRoot": "apps/login-registration/src",
+      "compilerOptions": {
+        "tsConfigPath": "apps/login-registration/tsconfig.app.json"
+      }
+    },
     "observability-monorepo-source": {
       "type": "application",
       "root": "apps/observability-monorepo-source",

@@ -1,0 +1,13 @@
+1. Get the PostgreSQL password:
+{{- if .Values.auth.existingSecret }}
+  echo $(kubectl get secret --namespace {{ .Release.Namespace }} {{ .Values.auth.existingSecret }} -o jsonpath="{.data.password}" | base64 -d)
+{{- else }}
+  echo $(kubectl get secret --namespace {{ .Release.Namespace }} {{ include "postgresql.fullname" . }} -o jsonpath="{.data.password}" | base64 -d)
+{{- end }}
+
+2. Connect to PostgreSQL from within the cluster:
+  kubectl run {{ include "postgresql.fullname" . }}-client --rm --tty -i --restart='Never' --namespace {{ .Release.Namespace }} --image {{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }} --env="PGPASSWORD=<PASSWORD>" \
+    --command -- psql --host {{ include "postgresql.fullname" . }} -U {{ .Values.auth.username }} -d {{ .Values.auth.database }} -p {{ (index .Values.service.ports "postgresql").port }}
+
+3. Port forward to access locally:
+  kubectl port-forward --namespace {{ .Release.Namespace }} svc/{{ include "postgresql.fullname" . }} {{ (index .Values.service.ports "postgresql").port }}:{{ (index .Values.service.ports "postgresql").port }}

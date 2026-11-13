@@ -1,21 +1,25 @@
 apiVersion: v2
 name: observability-stack
-description: Unified Observability Stack Helm chart
+description: Unified Observability Stack Helm chart, Umbrella chart for Prometheus, Grafana, Loki, Tempo, and OpenTelemetry Collector
 type: application
 version: 0.1.0
 dependencies:
   - name: prometheus
     version: 0.1.0
-    repository: "file://../prometheus"
+    repository: 'file://../prometheus'
   - name: otel-collector
     version: 0.1.0
-    repository: "file://../otel-collector"
+    repository: 'file://../otel-collector'
   - name: tempo
     version: 0.1.0
-    repository: "file://../tempo"
+    repository: 'file://../tempo'
   - name: loki
     version: 0.1.0
-    repository: "file://../loki"
+    repository: 'file://../loki'
   - name: grafana
     version: 0.1.0
-    repository: "file://../grafana"
+    repository: 'file://../grafana'
+  - name: postgresql
+    version: 0.1.0
+    repository: 'file://../postgresql'
+    condition: postgresql.enabled

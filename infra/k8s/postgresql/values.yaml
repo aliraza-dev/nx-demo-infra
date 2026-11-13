@@ -1,0 +1,86 @@
+replicaCount: 1
+
+image:
+  repository: postgres
+  pullPolicy: IfNotPresent
+  tag: "16.4-alpine"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: "postgresql"
+
+auth:
+  postgresPassword: "postgrespassword"
+  username: "postgres"
+  password: "postgrespassword"
+  database: "postgres"
+  existingSecret: ""
+
+serviceAccount:
+  create: true
+  automount: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext:
+  fsGroup: 999
+
+securityContext:
+  runAsUser: 999
+  runAsGroup: 999
+  runAsNonRoot: true
+
+service:
+  type: ClusterIP
+  ports:
+    postgresql:
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
+
+persistence:
+  enabled: false
+  size: 2Gi
+  accessModes:
+    - ReadWriteOnce
+  # storageClassName: ""
+  mountPath: /var/lib/postgresql/data
+
+resources:
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 5
+  periodSeconds: 10
+  timeoutSeconds: 5
+  failureThreshold: 6
+
+# Additional environment variables
+extraEnv: []
+
+# Extra volumes and volume mounts
+extraVolumes: []
+extraVolumeMounts: []
+
+# Custom init scripts loaded into /docker-entrypoint-initdb.d
+initdbScripts: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
