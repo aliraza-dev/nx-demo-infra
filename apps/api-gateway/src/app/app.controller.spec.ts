@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { UserRole } from './auth';
 
 describe('AppController', () => {
   let app: TestingModule;
@@ -33,6 +34,28 @@ describe('AppController', () => {
     ),
   };
 
+  const mockLoginRegistrationService = {
+    login: jest.fn((dto) =>
+      of({
+        success: true,
+        message: 'Login successful',
+        userId: '1',
+        email: dto.email,
+        token: 'test-token',
+        role: UserRole.DEVELOPER,
+      }),
+    ),
+    register: jest.fn((dto) =>
+      of({
+        success: true,
+        message: 'User registered successfully',
+        userId: '1',
+        email: dto.email,
+        role: dto.role || UserRole.DEVELOPER,
+      }),
+    ),
+  };
+
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [AppController],
@@ -45,6 +68,10 @@ describe('AppController', () => {
         {
           provide: 'PAYMENTS_SERVICE',
           useValue: { getService: () => mockPaymentsService },
+        },
+        {
+          provide: 'LOGIN_REGISTRATION_SERVICE',
+          useValue: { getService: () => mockLoginRegistrationService },
         },
       ],
     }).compile();
@@ -67,12 +94,38 @@ describe('AppController', () => {
   });
 
   describe('login', () => {
-    it('should return "Login successful" message', () => {
+    it('should route login through gRPC and return response with role', async () => {
       const appController = app.get<AppController>(AppController);
       const loginDto = { email: 'random@email.com', password: 'password' };
 
-      expect(appController.login(loginDto)).toEqual({
+      const result = await appController.login(loginDto);
+      expect(result).toEqual({
+        success: true,
         message: 'Login successful',
+        userId: '1',
+        email: 'random@email.com',
+        token: 'test-token',
+        role: UserRole.DEVELOPER,
+      });
+    });
+  });
+
+  describe('register', () => {
+    it('should route registration through gRPC and return response with role', async () => {
+      const appController = app.get<AppController>(AppController);
+      const registerDto = {
+        email: 'dev@email.com',
+        password: 'password',
+        role: UserRole.DEVELOPER,
+      };
+
+      const result = await appController.register(registerDto);
+      expect(result).toEqual({
+        success: true,
+        message: 'User registered successfully',
+        userId: '1',
+        email: 'dev@email.com',
+        role: UserRole.DEVELOPER,
       });
     });
   });

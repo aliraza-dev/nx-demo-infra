@@ -20,6 +20,7 @@
       "entryFile": "main",
       "sourceRoot": "apps/login-registration/src",
       "compilerOptions": {
+        "webpack": false,
         "tsConfigPath": "apps/login-registration/tsconfig.app.json"
       }
     },

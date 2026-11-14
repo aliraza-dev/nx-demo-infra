@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { of } from 'rxjs';
 import { AppService } from './app.service';
+import { UserRole } from './auth';
 
 describe('AppService', () => {
   let moduleRef: TestingModule;
@@ -33,6 +34,28 @@ describe('AppService', () => {
     ),
   };
 
+  const mockLoginRegistrationService = {
+    login: jest.fn((dto) =>
+      of({
+        success: true,
+        message: 'Login successful',
+        userId: '1',
+        email: dto.email,
+        token: 'test-token',
+        role: UserRole.DEVELOPER,
+      }),
+    ),
+    register: jest.fn((dto) =>
+      of({
+        success: true,
+        message: 'User registered successfully',
+        userId: '1',
+        email: dto.email,
+        role: dto.role || UserRole.DEVELOPER,
+      }),
+    ),
+  };
+
   beforeAll(async () => {
     moduleRef = await Test.createTestingModule({
       providers: [
@@ -44,6 +67,10 @@ describe('AppService', () => {
         {
           provide: 'PAYMENTS_SERVICE',
           useValue: { getService: () => mockPaymentsService },
+        },
+        {
+          provide: 'LOGIN_REGISTRATION_SERVICE',
+          useValue: { getService: () => mockLoginRegistrationService },
         },
       ],
     }).compile();
@@ -65,9 +92,39 @@ describe('AppService', () => {
   });
 
   describe('login', () => {
-    it('should return "Login successful" message', () => {
+    it('should call LoginRegistrationService via gRPC and return response with role', async () => {
       const loginDto = { email: 'random@email.com', password: 'password' };
-      expect(service.login(loginDto)).toEqual({ message: 'Login successful' });
+      const res = await service.login(loginDto);
+      expect(mockLoginRegistrationService.login).toHaveBeenCalledWith(loginDto);
+      expect(res).toEqual({
+        success: true,
+        message: 'Login successful',
+        userId: '1',
+        email: 'random@email.com',
+        token: 'test-token',
+        role: UserRole.DEVELOPER,
+      });
+    });
+  });
+
+  describe('register', () => {
+    it('should call LoginRegistrationService register via gRPC and return response with role', async () => {
+      const registerDto = {
+        email: 'dev@email.com',
+        password: 'password',
+        role: UserRole.DEVELOPER,
+      };
+      const res = await service.register(registerDto);
+      expect(mockLoginRegistrationService.register).toHaveBeenCalledWith(
+        registerDto,
+      );
+      expect(res).toEqual({
+        success: true,
+        message: 'User registered successfully',
+        userId: '1',
+        email: 'dev@email.com',
+        role: UserRole.DEVELOPER,
+      });
     });
   });
 

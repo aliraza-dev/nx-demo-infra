@@ -197,16 +197,23 @@
 
       <!-- Success Message Banner -->
       @if (successMessage()) {
-        <div class="mb-6 p-3.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm flex items-center gap-2.5 animate-fadeIn">
-          <svg class="w-5 h-5 shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-          </svg>
-          <span>{{ successMessage() }}</span>
+        <div class="mb-6 p-3.5 rounded-md bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm flex items-center justify-between gap-2.5 animate-fadeIn">
+          <div class="flex items-center gap-2">
+            <svg class="w-5 h-5 shrink-0 text-emerald-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            <span>{{ successMessage() }}</span>
+          </div>
+          @if (userRole()) {
+            <span class="px-2.5 py-0.5 text-xs font-semibold rounded bg-emerald-200/70 text-emerald-800 uppercase tracking-wider">
+              {{ userRole() }}
+            </span>
+          }
         </div>
       }
 
       <form (ngSubmit)="onSubmit()" class="space-y-8">
-        <!-- Username Input Field -->
+        <!-- Username/Email Input Field -->
         <div class="relative group">
           <input
             type="text"
@@ -214,7 +221,7 @@
             name="username"
             [ngModel]="username()"
             (ngModelChange)="username.set($event)"
-            placeholder="Username"
+            placeholder="Email or Username"
             autocomplete="username"
             required
             class="w-full pb-3 pt-2 text-base sm:text-lg text-gray-800 bg-transparent border-b-2 border-gray-200 focus:border-[#eb5424] focus:outline-none transition-colors duration-200 placeholder-gray-400 font-normal"
